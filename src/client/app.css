@@ -11,8 +11,9 @@
 .dietary {
   font-size: 10pt;
   border-radius: 100%;
-  background: #A0C9CD;
-  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+  background: #53a8b6;
+  box-shadow: 0px 4px 69px -37px rgba(0,0,0,0.75);
+  padding: 20px;
   width: 26px;
   height: 26px;
   text-align: center;
@@ -20,15 +21,47 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 5px;
+  margin: 0 5px 0 0;
   color: #FFF;
+}
+
+.dietaryHud {
+  margin: 0 15px 5px 5px;
+}
+
+.dietaryCount{
+  font-size: 10pt;
+  border-radius: 100%;
+  background: white;
+  padding: px;
+  width: 26px;
+  height: 26px;
+  text-align: center;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  margin-bottom: 25px;
+  margin-left: 40px;
+  position: absolute;
+}
+
+.dietaryIconContainer{
+  margin-right: auto;
+}
+
+.dietaryWrapper{
+  width: 10px;
 }
 
 .menu-summary-left {
   font-weight: bold;
+  width: 30%;
 }
 .menu-summary-right {
   text-align: right;
+  width: 70%;
 }
 
 .menu-builder {

@@ -8,4 +8,8 @@ describe('App tests', () => {
         render(<App />)
         expect(screen.getByText('6 items')).toBeInTheDocument()
     })
+    it('renders a message', () => {
+        render(<App />)
+        expect(screen.getByText('6 items')).toBeInTheDocument()
+    })
 })

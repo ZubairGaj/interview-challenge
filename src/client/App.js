@@ -4,12 +4,13 @@ import './App.css';
 export default function App() {
   const [dataState, setDataState] = useState();
   const [previewState, setPreviewState] = useState([]);
+  const [dietaryState, setDietaryState] = useState();
   const url = "/api/items?search=";
 
   function fetchMenuItems(searchParams) {
     fetch(`${url}${searchParams}`)
       .then(res => res.json())
-      .then(data => setDataState(data.responseArray))
+      .then(data => { setDataState(data.responseArray); handleDietaryData(data.responseArray); })
   }
 
   useEffect(() => {
@@ -44,6 +45,25 @@ export default function App() {
     )
   };
 
+  const renderDietaryHud = dietaryState ? Object.keys(dietaryState).map((item, i) =>
+    <span className="dietary dietaryHud">{item} <span className="dietaryCount"> {dietaryState[item]}</span></span>) : null;
+
+  const handleDietaryData = (item) => {
+    const dietaryDataHud = {
+    }
+    item.forEach(element => {
+      element.dietaries.forEach(element => {
+        if (!dietaryDataHud[element]) {
+          dietaryDataHud[element] = 1
+        } else {
+          dietaryDataHud[element] = dietaryDataHud[element] + 1
+        }
+      });
+    });
+    console.log(dietaryDataHud);
+    setDietaryState(dietaryDataHud)
+  };
+
   const renderMenuItems = dataState ? dataState.map(item =>
     <li className="item" onClick={() => { addItemToPreview(item) }}>
       <h2>{item.name}</h2>
@@ -58,7 +78,7 @@ export default function App() {
       <p>
         {renderDietaryItems(item)}
       </p>
-      <button className="remove-item" onClick={()=>{removeItemFromPreview(item.itemStateId)}}>x</button>
+      <button className="remove-item" onClick={() => { removeItemFromPreview(item.itemStateId) }}>x</button>
     </li>) : null;
 
   return (
@@ -66,13 +86,11 @@ export default function App() {
       <div className="menu-summary">
         <div className="container">
           <div className="row">
-            <div className="col-6 menu-summary-left">
+            <div className="menu-summary-left">
               <span>{dataState ? dataState.length : null}</span>
             </div>
-            <div className="col-6 menu-summary-right">
-              6x <span className="dietary">ve</span>
-              4x <span className="dietary">v</span>
-              12x <span className="dietary">n!</span>
+            <div className="menu-summary-right dietaryIconContainer">
+              {renderDietaryHud}
             </div>
           </div>
         </div>
