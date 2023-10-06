@@ -10,7 +10,7 @@ export default function App() {
   function fetchMenuItems(searchParams) {
     fetch(`${url}${searchParams}`)
       .then(res => res.json())
-      .then(data => { setDataState(data.responseArray); handleDietaryData(data.responseArray); })
+      .then(data => { setDataState(data.responseArray) })
   }
 
   useEffect(() => {
@@ -25,11 +25,13 @@ export default function App() {
       dietaries: item.dietaries,
       itemStateId,
     };
+    handleDietaryData([...previewState, previewObject])
     setPreviewState([...previewState, previewObject]);
   };
 
   const removeItemFromPreview = (key) => {
     const updatedPreviewState = previewState.filter((item) => item.itemStateId !== key);
+    handleDietaryData(updatedPreviewState);
     setPreviewState(updatedPreviewState);
   };
 
@@ -86,7 +88,7 @@ export default function App() {
         <div className="container">
           <div className="row">
             <div className="menu-summary-left">
-              <span data-testid="itemNumber">{dataState.length}</span>
+              <span data-testid="itemNumber">{previewState.length} selected results</span>
             </div>
             <div className="menu-summary-right dietaryIconContainer">{renderDietaryHud}</div>
           </div>
@@ -102,6 +104,7 @@ export default function App() {
                 placeholder="Name"
                 onChange={(e) => fetchMenuItems(e.target.value)}
               />
+              <span data-testid="itemNumber">{dataState.length} search results</span>
             </div>
             <ul className="item-picker">{renderMenuItems}</ul>
           </div>
