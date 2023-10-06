@@ -31,10 +31,9 @@ it('adds and removes items to/from the preview', async () => {
   expect(screen.queryByText('Item Name')).toBeNull();
 });
 
-it('filters menu items by name', async () => {
+it('returns 0 search results length if user is searching for an asset that dosnt exist', async () => {
   render(<App />);
-  screen.getByTestId('itemNumber').textContent
   const input = screen.getByPlaceholderText('Name');
   fireEvent.change(input, { target: { value: 'assetthatdoesnt exist' } });
-  expect(screen.getByTestId('itemNumber').textContent).toBe("0");
+  expect(screen.getByTestId('searchResultsLength').textContent).toBe("0 search results");
 });
