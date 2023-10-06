@@ -9,7 +9,7 @@ export default function App() {
 
   function fetchMenuItems(searchParams) {
     fetch(`${url}${searchParams}`)
-      .then(res => { return res.json()})
+      .then(res => res.json())
       .then(data => { setDataState(data.responseArray); handleDietaryData(data.responseArray); })
   }
 
